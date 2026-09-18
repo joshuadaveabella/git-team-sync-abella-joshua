@@ -16,8 +16,11 @@ function cancelOrder(order) {
 }
 
 function calculateLoyaltyPoints(orderTotal) {
-  const points = orderTotal * POINTS_PER_DOLLAR;
-  return Math.round(points);   // round instead of truncate
+  let points = orderTotal * POINTS_PER_DOLLAR;
+  if (orderTotal > 100) {
+    points = points * 1.5;   // VIP bonus (from Clone A)
+  }
+  return Math.round(points); // rounding (from Clone B)
 }
 
 module.exports = { createOrder, applyDiscount, cancelOrder, calculateLoyaltyPoints };
