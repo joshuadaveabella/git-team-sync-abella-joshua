@@ -15,4 +15,12 @@ function cancelOrder(order) {
   return { ...order, status: 'cancelled', total: 0 };
 }
 
-module.exports = { createOrder, applyDiscount, cancelOrder };
+function calculateLoyaltyPoints(orderTotal) {
+  let points = orderTotal * POINTS_PER_DOLLAR;
+  if (orderTotal > 100) {
+    points = points * 1.5;
+  }
+  return Math.max(1, Math.round(points));
+}
+
+module.exports = { createOrder, applyDiscount, cancelOrder, calculateLoyaltyPoints };
