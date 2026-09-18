@@ -15,8 +15,12 @@ function cancelOrder(order) {
   return { ...order, status: 'cancelled', total: 0 };
 }
 
-function calculateLoyaltyPoints(order) {
-  return Math.floor(order.total / 10);
+function calculateLoyaltyPoints(orderTotal) {
+  let points = orderTotal * POINTS_PER_DOLLAR;
+  if (orderTotal > 100) {
+    points = points * 1.5;   // VIP bonus
+  }
+  return Math.trunc(points);
 }
 
 module.exports = { createOrder, applyDiscount, cancelOrder, calculateLoyaltyPoints };
